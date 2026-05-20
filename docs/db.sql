@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Estoque (
     id_produto INT NOT NULL,
     quantidade_atual INT NOT NULL,
     dt_ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto)
+    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Lote_Estoque (
