@@ -25,12 +25,12 @@ export class LoteEstoqueService {
      * Cria e persiste um novo lote de estoque após validação.
      * @param idProduto - ID do produto associado ao lote.
      * @param dataVencimento - Data de vencimento do lote.
-     * @param quantidade - Quantidade de itens no lote.
+     * @param quantidade_lote - Quantidade de itens no lote.
      * @returns Promise com o resultado da inserção.
      * @throws {Error} Se a data de vencimento for passada ou a quantidade for zero/negativa.
      */
-    async adicionarLote(idProduto: number, dataVencimento: Date, quantidade: number) {
-        const lote = new LoteEstoque(idProduto, dataVencimento, quantidade);
+    async adicionarLote(idProduto: number, dataVencimento: Date, quantidade_lote: number) {
+        const lote = new LoteEstoque(idProduto, dataVencimento, quantidade_lote);
         return await this._repository.adicionarLote(lote);
     }
 
@@ -39,12 +39,12 @@ export class LoteEstoqueService {
      * @param id - ID do lote a ser editado.
      * @param idProduto - ID do produto associado.
      * @param dataVencimento - Nova data de vencimento.
-     * @param quantidade - Nova quantidade.
+     * @param quantidade_lote - Nova quantidade.
      * @returns Promise com o resultado da atualização.
      * @throws {Error} Se a data de vencimento for passada ou a quantidade for zero/negativa.
      */
-    async editarLote(id: number, idProduto: number, dataVencimento: Date, quantidade: number) {
-        const lote = new LoteEstoque(idProduto, dataVencimento, quantidade, id);
+    async editarLote(id: number, idProduto: number, dataVencimento: Date, quantidade_lote: number) {
+        const lote = new LoteEstoque(idProduto, dataVencimento, quantidade_lote, id);
         return await this._repository.editarLote(id, lote);
     }
 
