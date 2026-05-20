@@ -1,6 +1,21 @@
+/**
+ * 20/05/2026 - estoque.model.ts
+ * Descrição: Este arquivo define a classe Estoque, que representa um registro de estoque no sistema.
+ * Classe que representa um registro de estoque, contendo informações sobre o produto e a quantidade disponível.
+ * Esta classe é utilizada para gerenciar o estoque do sistema, permitindo o controle de informações e disponibilidade.
+ * Atributos:
+ * - _idEstoque: Identificador único do registro de estoque (opcional, gerado automaticamente pelo banco de dados).
+ * - _idProduto: Identificador do produto associado ao estoque.
+ * - _quantidadeAtual: Quantidade atual disponível em estoque.
+ * - _dtUltimaAtualizacao: Data e hora da última atualização do estoque (opcional, gerada automaticamente pelo banco de dados).
+ * Métodos:
+ * - _validarQuantidadeAtual: Valida se a quantidade é maior que zero. (quantidade > 0)
+ * - Construtor: Permite criar uma instância de Estoque com os atributos necessários.
+ * - Getters e Setters: Permitem acessar e modificar os atributos do estoque.
+ */
 export class Estoque {
     private readonly _idEstoque?: number;
-    private _idProduto: number = 0;
+    private readonly _idProduto: number = 0;
     private _quantidadeAtual: number = 0;
     private readonly _dtUltimaAtualizacao?: Date;
 
@@ -17,7 +32,7 @@ export class Estoque {
         idEstoque?: number,
         dtUltimaAtualizacao?: Date
     ) {
-        this.IdProduto = idProduto;
+        this._idProduto = idProduto;
         this.QuantidadeAtual = quantidadeAtual;
         this._idEstoque = idEstoque;
         this._dtUltimaAtualizacao = dtUltimaAtualizacao;
@@ -41,16 +56,6 @@ export class Estoque {
     /** @returns Data e hora da última atualização do estoque, ou undefined. */
     public get DtUltimaAtualizacao(): Date | undefined {
         return this._dtUltimaAtualizacao;
-    }
-
-    /**
-     * Define o ID do produto, aplicando validação.
-     * @param value - ID do produto a ser associado.
-     * @throws {TypeError} Se o valor não for um número válido maior que zero.
-     */
-    public set IdProduto(value: number) {
-        this._validarIdProduto(value);
-        this._idProduto = value;
     }
 
     /**
@@ -82,20 +87,6 @@ export class Estoque {
      */
     public static editar(idProduto: number, quantidadeAtual: number, id: number): Estoque {
         return new Estoque(idProduto, quantidadeAtual, id);
-    }
-
-    /**
-     * Valida se o ID do produto é um número maior que zero.
-     * @param value - Valor a ser validado.
-     * @throws {TypeError} Se o valor não for do tipo number ou for menor/igual a zero.
-     */
-    private _validarIdProduto(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do produto deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id do produto deve ser um número válido maior que zero.');
-        }
     }
 
     /**
