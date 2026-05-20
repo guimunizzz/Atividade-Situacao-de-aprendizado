@@ -9,7 +9,23 @@ export class EstoqueRepository {
      * @returns Promise com os dados de todos os estoques.
      */
     async selectTodos(): Promise<ResultSetHeader> {
-        const sql = 'SELECT * FROM Estoque';
+        const sql = `
+            SELECT
+                e.*,
+                p.estoque_minimo,
+                CASE
+                    WHEN e.quantidade_atual <= p.estoque_minimo THEN 'ESTOQUE BAIXO'
+                    ELSE 'OK'
+                END AS status_estoque
+            FROM Estoque e
+            INNER JOIN produtos p ON p.id_produto = e.id_produto
+            ORDER BY
+                CASE
+                    WHEN e.quantidade_atual <= p.estoque_minimo THEN 0
+                    ELSE 1
+                END,
+                e.quantidade_atual ASC
+        `;
         const [rows] = await db.execute<ResultSetHeader>(sql);
         return rows;
     }
@@ -20,7 +36,18 @@ export class EstoqueRepository {
      * @returns Promise com os dados do estoque encontrado.
      */
     async selectById(id: number): Promise<ResultSetHeader> {
-        const sql = 'SELECT * FROM Estoque WHERE id_estoque = ?';
+        const sql = `
+            SELECT
+                e.*,
+                p.estoque_minimo,
+                CASE
+                    WHEN e.quantidade_atual <= p.estoque_minimo THEN 'ESTOQUE BAIXO'
+                    ELSE 'OK'
+                END AS status_estoque
+            FROM Estoque e
+            INNER JOIN produtos p ON p.id_produto = e.id_produto
+            WHERE e.id_estoque = ?
+        `;
         const values = [id];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
