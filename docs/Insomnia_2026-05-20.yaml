@@ -4,25 +4,25 @@ name: situacaoAprendizado
 meta:
   id: wrk_ddcfb1dafba64d17b639e2acad70e06f
   created: 1776859256021
-  modified: 1776859256021
+  modified: 1779275000000
   description: ""
 collection:
   - name: Categorias
     meta:
       id: fld_6227951c35274299b45070d991a4d88d
       created: 1776859262944
-      modified: 1776859262944
+      modified: 1779275000000
       sortKey: -1776859262944
       description: ""
     children:
       - url: http://localhost:8000/categoria
-        name: Select Categoria
+        name: "[OK] Select Todos Categorias"
         meta:
           id: req_e43a4889b6664e7081a309661ecc433f
           created: 1776859264706
           modified: 1776859509008
           isPrivate: false
-          description: ""
+          description: "Retorna todas as categorias cadastradas. Esperado: 200 + array de categorias."
           sortKey: -1776859264706
         method: GET
         headers:
@@ -38,21 +38,44 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/categoria/1
+        name: "[OK] Select Categoria por ID"
+        meta:
+          id: req_a1001001001001001001001001001001
+          created: 1779275001000
+          modified: 1779275001000
+          isPrivate: false
+          description: "Busca categoria com ID 1. Esperado: 200 + dados da categoria."
+          sortKey: -1776859264800
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
       - url: http://localhost:8000/categoria
-        name: Insert Categoria
+        name: "[OK] Insert Categoria"
         meta:
           id: req_435f7c31d3a744578e003e43ba95285e
           created: 1776859305351
           modified: 1776859506127
           isPrivate: false
-          description: ""
+          description: "Cria nova categoria valida (descricao com mais de 3 chars). Esperado: 201 + objeto criado."
           sortKey: -1776859305351
         method: POST
         body:
           mimeType: application/json
           text: |-
             {
-            	"descricao": "Ronaldo2"
+            	"descricao": "Bebidas Premium"
             }
         headers:
           - name: Content-Type
@@ -70,20 +93,20 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/categoria/1
-        name: Put Categoria
+        name: "[OK] Update Categoria"
         meta:
           id: req_c181078816304ca2af240094fbf8eb90
           created: 1776859410355
           modified: 1776859498493
           isPrivate: false
-          description: ""
+          description: "Atualiza a categoria ID 1 com dados validos. Esperado: 201 + objeto atualizado."
           sortKey: -1776859410355
         method: PUT
         body:
           mimeType: application/json
           text: |-
             {
-            	"descricao": "Compras"
+            	"descricao": "Compras Gerais"
             }
         headers:
           - name: Content-Type
@@ -100,14 +123,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:8000/categoria/2
-        name: Delete Categoria
+      - url: http://localhost:8000/categoria/5
+        name: "[OK] Delete Categoria"
         meta:
           id: req_15e67f507ac7483084d17f20febaf52d
           created: 1776859465891
-          modified: 1776859495165
+          modified: 1779275020000
           isPrivate: false
-          description: ""
+          description: "Remove categoria ID 5 (criada pelo [OK] Insert Categoria). EXECUTAR APOS o Insert. IDs 1-4 têm FK com Produtos sem CASCADE e retornariam 500 por constraint. Esperado: 200."
           sortKey: -1776859465891
         method: DELETE
         headers:
@@ -123,22 +146,115 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/categoria
+        name: "[ERRO] Categoria - Descricao muito curta (<=3 chars)"
+        meta:
+          id: req_a1001002001001001001001001001001
+          created: 1779275002000
+          modified: 1779275002000
+          isPrivate: false
+          description: "Validacao: descricao 'ab' tem apenas 2 chars. Esperado: 500 + TypeError 'deve ter pelo menos 3 caracteres'."
+          sortKey: -1776859466100
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "ab"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categoria
+        name: "[ERRO] Categoria - Descricao com exatamente 3 chars"
+        meta:
+          id: req_a1001003001001001001001001001001
+          created: 1779275003000
+          modified: 1779275003000
+          isPrivate: false
+          description: "Validacao: descricao 'abc' tem 3 chars, mas o validator exige > 3. Esperado: 500 + TypeError."
+          sortKey: -1776859466200
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "abc"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categoria
+        name: "[ERRO] Categoria - Descricao vazia"
+        meta:
+          id: req_a1001004001001001001001001001001
+          created: 1779275004000
+          modified: 1779275004000
+          isPrivate: false
+          description: "Validacao: descricao vazia string. Esperado: 500 + TypeError 'deve ter pelo menos 3 caracteres'."
+          sortKey: -1776859466300
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
   - name: Fornecedores
     meta:
       id: fld_efcb87a7267942b7b155f02fe7492eb3
       created: 1776859532332
-      modified: 1776859532332
+      modified: 1779275000000
       sortKey: -1775090432368
       description: ""
     children:
       - url: http://localhost:8000/fornecedores
-        name: Select Fornecedor
+        name: "[OK] Select Todos Fornecedores"
         meta:
           id: req_aa8b3540d6b04fe5b19ff92707bcfaba
           created: 1776859532337
           modified: 1776859704793
           isPrivate: false
-          description: ""
+          description: "Retorna todos os fornecedores. Esperado: 200 + array."
           sortKey: -1776859264706
         method: GET
         headers:
@@ -154,21 +270,44 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/fornecedores/1
+        name: "[OK] Select Fornecedor por ID"
+        meta:
+          id: req_b1001001001001001001001001001001
+          created: 1779275005000
+          modified: 1779275005000
+          isPrivate: false
+          description: "Busca fornecedor com ID 1. Esperado: 200 + dados do fornecedor."
+          sortKey: -1776859264800
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
       - url: http://localhost:8000/fornecedores
-        name: Insert Fornecedor
+        name: "[OK] Insert Fornecedor"
         meta:
           id: req_255f9b1a6e434f229c45c706e31d1116
           created: 1776859532342
           modified: 1776859605657
           isPrivate: false
-          description: ""
+          description: "Cria fornecedor valido. Esperado: 201 + objeto criado."
           sortKey: -1776859305351
         method: POST
         body:
           mimeType: application/json
           text: |-
             {
-            	"descricao": "ronaldo2"
+            	"descricao": "Fornecedor Teste"
             }
         headers:
           - name: Content-Type
@@ -186,20 +325,20 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/fornecedores/1
-        name: Put Fornecedor
+        name: "[OK] Update Fornecedor"
         meta:
           id: req_253f778314034fd6a849c28ea8deed89
           created: 1776859532347
           modified: 1776859718233
           isPrivate: false
-          description: ""
+          description: "Atualiza fornecedor ID 1 com dados validos. Esperado: 201."
           sortKey: -1776859410355
         method: PUT
         body:
           mimeType: application/json
           text: |-
             {
-            	"descricao": "Ronald"
+            	"descricao": "Fornecedor Atualizado"
             }
         headers:
           - name: Content-Type
@@ -216,14 +355,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:8000/fornecedores/2
-        name: Delete Fornecedor
+      - url: http://localhost:8000/fornecedores/5
+        name: "[OK] Delete Fornecedor"
         meta:
           id: req_bf944807d64a4cbf8be2a2620ecd8066
           created: 1776859532351
-          modified: 1776859739040
+          modified: 1779275021000
           isPrivate: false
-          description: ""
+          description: "Remove fornecedor ID 5 (criado pelo [OK] Insert Fornecedor). EXECUTAR APOS o Insert. IDs 1-4 têm FK com Produtos sem CASCADE e retornariam 500 por constraint. Esperado: 200."
           sortKey: -1776859465891
         method: DELETE
         headers:
@@ -239,22 +378,84 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/fornecedores
+        name: "[ERRO] Fornecedor - Descricao muito curta (<=3 chars)"
+        meta:
+          id: req_b1001002001001001001001001001001
+          created: 1779275006000
+          modified: 1779275006000
+          isPrivate: false
+          description: "Validacao: descricao 'ab' (2 chars). Esperado: 500 + TypeError."
+          sortKey: -1776859466100
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "ab"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/fornecedores
+        name: "[ERRO] Fornecedor - Descricao vazia"
+        meta:
+          id: req_b1001003001001001001001001001001
+          created: 1779275007000
+          modified: 1779275007000
+          isPrivate: false
+          description: "Validacao: descricao vazia. Esperado: 500 + TypeError."
+          sortKey: -1776859466200
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
   - name: Produtos
     meta:
       id: fld_18aa6d14abce49c2ae40f4d689db24b1
       created: 1776866137534
-      modified: 1779274674132
+      modified: 1779275000000
       sortKey: -1776866137534
       description: ""
     children:
       - url: http://localhost:8000/produtos/
-        name: Select Produto
+        name: "[OK] Select Todos Produtos"
         meta:
           id: req_cac24d2b7ca442cebd3e34ce60ef66e4
           created: 1776866139975
           modified: 1779274657330
           isPrivate: false
-          description: ""
+          description: "Retorna todos os produtos. Esperado: 200 + array."
           sortKey: -1776866139975
         method: GET
         headers:
@@ -270,21 +471,44 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/produtos/1
+        name: "[OK] Select Produto por ID"
+        meta:
+          id: req_c1001001001001001001001001001001
+          created: 1779275008000
+          modified: 1779275008000
+          isPrivate: false
+          description: "Busca produto com ID 1 (Coca-Cola). Esperado: 200 + dados do produto."
+          sortKey: -1776866140000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
       - url: http://localhost:8000/produtos
-        name: Insert Produto
+        name: "[OK] Insert Produto"
         meta:
           id: req_c148adefc14d4315b1ae66dcc1eb21b5
           created: 1779274227005
           modified: 1779274628974
           isPrivate: false
-          description: ""
+          description: "Cria produto valido com imagem. Esperado: 201 + objeto criado."
           sortKey: -1776866140075
         method: POST
         body:
           mimeType: multipart/form-data
           params:
             - name: dcProduto
-              value: Ronaldo2
+              value: Produto Teste Valido
               description: ""
               disabled: false
             - name: preco
@@ -292,7 +516,7 @@ collection:
               description: ""
               disabled: false
             - name: estoqueMinimo
-              value: "2"
+              value: "5"
               description: ""
               disabled: false
             - name: idCategoria
@@ -325,36 +549,36 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/produtos/3
-        name: Put Produto
+        name: "[OK] Update Produto"
         meta:
           id: req_29036321c7ba461abaa54788ba0576cf
           created: 1779274586869
           modified: 1779276279662
           isPrivate: false
-          description: ""
+          description: "Atualiza produto ID 3 com dados validos. Esperado: 201."
           sortKey: -1776866140175
         method: PUT
         body:
           mimeType: multipart/form-data
           params:
             - name: dcProduto
-              value: Gato frajola
+              value: Detergente Plus
               description: ""
               disabled: false
             - name: preco
-              value: "10"
+              value: "4.50"
               description: ""
               disabled: false
             - name: estoqueMinimo
-              value: "4"
+              value: "20"
               description: ""
               disabled: false
             - name: idCategoria
-              value: "1"
+              value: "3"
               description: ""
               disabled: false
             - name: idFornecedor
-              value: "1"
+              value: "3"
               description: ""
               disabled: false
             - name: vinculoImagem
@@ -379,16 +603,160 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/produtos/1
-        name: Delete Produto
+        name: "[OK] Delete Produto"
         meta:
           id: req_b676cc9cd96b43d3b11cd2f1b17e0cac
           created: 1779274646400
           modified: 1779275142234
           isPrivate: false
-          description: ""
+          description: "Remove produto ID 1. Esperado: 200 + mensagem de sucesso."
           sortKey: -1779274646400
         method: DELETE
         headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos
+        name: "[ERRO] Produto - Descricao muito curta (<=3 chars)"
+        meta:
+          id: req_c1001002001001001001001001001001
+          created: 1779275009000
+          modified: 1779275009000
+          isPrivate: false
+          description: "Validacao: dcProduto 'ab' (2 chars). Esperado: 500 + TypeError 'deve ter pelo menos 3 caracteres'."
+          sortKey: -1779274646500
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: dcProduto
+              value: "ab"
+              description: "Invalido: apenas 2 chars"
+              disabled: false
+            - name: preco
+              value: "50"
+              description: ""
+              disabled: false
+            - name: estoqueMinimo
+              value: "5"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: idFornecedor
+              value: "1"
+              description: ""
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos
+        name: "[ERRO] Produto - Preco negativo"
+        meta:
+          id: req_c1001003001001001001001001001001
+          created: 1779275010000
+          modified: 1779275010000
+          isPrivate: false
+          description: "Validacao: preco -10 eh negativo. Esperado: 500 + TypeError 'nao pode ser negativo'."
+          sortKey: -1779274646600
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: dcProduto
+              value: Produto com Preco Invalido
+              description: ""
+              disabled: false
+            - name: preco
+              value: "-10"
+              description: "Invalido: preco negativo"
+              disabled: false
+            - name: estoqueMinimo
+              value: "5"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: idFornecedor
+              value: "1"
+              description: ""
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos
+        name: "[ERRO] Produto - Estoque minimo negativo"
+        meta:
+          id: req_c1001004001001001001001001001001
+          created: 1779275011000
+          modified: 1779275011000
+          isPrivate: false
+          description: "Validacao: estoqueMinimo -5 eh negativo. Esperado: 500 + TypeError 'nao pode ser negativo'."
+          sortKey: -1779274646700
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: dcProduto
+              value: Produto com Estoque Invalido
+              description: ""
+              disabled: false
+            - name: preco
+              value: "50"
+              description: ""
+              disabled: false
+            - name: estoqueMinimo
+              value: "-5"
+              description: "Invalido: estoque minimo negativo"
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: idFornecedor
+              value: "1"
+              description: ""
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
           - name: User-Agent
             value: insomnia/12.5.0
             description: ""
@@ -405,18 +773,18 @@ collection:
     meta:
       id: fld_7c916f029f094893915275999a415749
       created: 1779274677839
-      modified: 1779274677839
+      modified: 1779275000000
       sortKey: -1779274677839
       description: ""
     children:
       - url: http://localhost:8000/estoque
-        name: Select Estoque
+        name: "[OK] Select Todos Estoque"
         meta:
           id: req_4fa4e13f2e004836af8213bc0b83908d
           created: 1779274681563
           modified: 1779274695289
           isPrivate: false
-          description: ""
+          description: "Retorna todos os registros de estoque. Esperado: 200 + array."
           sortKey: -1779274681563
         method: GET
         headers:
@@ -432,14 +800,37 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/estoque/1
+        name: "[OK] Select Estoque por ID"
+        meta:
+          id: req_d1001001001001001001001001001001
+          created: 1779275012000
+          modified: 1779275012000
+          isPrivate: false
+          description: "Busca estoque com ID 1 (produto Coca-Cola, 100 unidades). Esperado: 200."
+          sortKey: -1779274681600
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
       - url: http://localhost:8000/estoque
-        name: Insert Estoque
+        name: "[OK] Insert Estoque"
         meta:
           id: req_40426cd58b4d48409ecbcbce3c67d80b
           created: 1779274715033
           modified: 1779274737185
           isPrivate: false
-          description: ""
+          description: "Cria registro de estoque valido. idProduto > 0, quantidadeAtual >= 0. Esperado: 201."
           sortKey: -1779274681663
         method: POST
         body:
@@ -465,13 +856,13 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/estoque/1
-        name: Put Estoque
+        name: "[OK] Update Estoque"
         meta:
           id: req_58621a158d7c422f9a3d2bfaa8e38b39
           created: 1779274763260
           modified: 1779274770015
           isPrivate: false
-          description: ""
+          description: "Atualiza quantidade do estoque ID 1. Atualiza dt_ultima_atualizacao automaticamente. Esperado: 201."
           sortKey: -1779274681763
         method: PUT
         body:
@@ -479,7 +870,7 @@ collection:
           text: |-
             {
             	"idProduto": 1,
-            	"quantidadeAtual": 15
+            	"quantidadeAtual": 150
             }
         headers:
           - name: Content-Type
@@ -497,16 +888,112 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/estoque/1
-        name: Delete Estoque
+        name: "[OK] Delete Estoque"
         meta:
           id: req_b14a2cd6e6944583805cf36869a56c23
           created: 1779274779371
           modified: 1779275090173
           isPrivate: false
-          description: ""
+          description: "Remove registro de estoque ID 1. Esperado: 200 + mensagem de sucesso."
           sortKey: -1779274779371
         method: DELETE
         headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque
+        name: "[ERRO] Estoque - idProduto zero"
+        meta:
+          id: req_d1001002001001001001001001001001
+          created: 1779275013000
+          modified: 1779275013000
+          isPrivate: false
+          description: "Validacao: idProduto = 0 falha pois deve ser > 0. Esperado: 500 + TypeError 'deve ser maior que zero'."
+          sortKey: -1779274779500
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 0,
+            	"quantidadeAtual": 10
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque
+        name: "[ERRO] Estoque - idProduto negativo"
+        meta:
+          id: req_d1001003001001001001001001001001
+          created: 1779275014000
+          modified: 1779275014000
+          isPrivate: false
+          description: "Validacao: idProduto = -1 eh negativo. Esperado: 500 + TypeError 'deve ser maior que zero'."
+          sortKey: -1779274779600
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": -1,
+            	"quantidadeAtual": 10
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque
+        name: "[ERRO] Estoque - Quantidade negativa"
+        meta:
+          id: req_d1001004001001001001001001001001
+          created: 1779275015000
+          modified: 1779275015000
+          isPrivate: false
+          description: "Validacao: quantidadeAtual = -5 eh negativo. Esperado: 500 + TypeError 'nao pode ser negativa'."
+          sortKey: -1779274779700
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"quantidadeAtual": -5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
           - name: User-Agent
             value: insomnia/12.5.0
             description: ""
@@ -523,18 +1010,18 @@ collection:
     meta:
       id: fld_b3c4d5e6f7a84b9c0d1e2f3a4b5c6d7e
       created: 1779274800000
-      modified: 1779274800000
+      modified: 1779275000000
       sortKey: -1779274800000
       description: ""
     children:
       - url: http://localhost:8000/lote-estoque
-        name: Select LoteEstoque
+        name: "[OK] Select Todos LoteEstoque"
         meta:
           id: req_c4d5e6f7a8b94c0d1e2f3a4b5c6d7e8f
           created: 1779274801000
           modified: 1779274801000
           isPrivate: false
-          description: ""
+          description: "Retorna todos os lotes de estoque. Esperado: 200 + array."
           sortKey: -1779274801000
         method: GET
         headers:
@@ -550,14 +1037,37 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: http://localhost:8000/lote-estoque/1
+        name: "[OK] Select LoteEstoque por ID"
+        meta:
+          id: req_e1001001001001001001001001001001
+          created: 1779275016000
+          modified: 1779275016000
+          isPrivate: false
+          description: "Busca lote com ID 1 (produto 1, vence 2026-12-31). Esperado: 200."
+          sortKey: -1779274801050
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
       - url: http://localhost:8000/lote-estoque
-        name: Insert LoteEstoque
+        name: "[OK] Insert LoteEstoque"
         meta:
           id: req_d5e6f7a8b9c04d1e2f3a4b5c6d7e8f9a
           created: 1779274802000
           modified: 1779274802000
           isPrivate: false
-          description: ""
+          description: "Cria lote valido: data futura e quantidade > 0. Esperado: 201."
           sortKey: -1779274801100
         method: POST
         body:
@@ -565,7 +1075,7 @@ collection:
           text: |-
             {
             	"idProduto": 1,
-            	"dataVencimento": "2027-01-01",
+            	"dataVencimento": "2027-12-31",
             	"quantidade_lote": 50
             }
         headers:
@@ -584,13 +1094,13 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:8000/lote-estoque/1
-        name: Put LoteEstoque
+        name: "[OK] Update LoteEstoque"
         meta:
           id: req_e6f7a8b9c0d14e2f3a4b5c6d7e8f9a0b
           created: 1779274803000
           modified: 1779274803000
           isPrivate: false
-          description: ""
+          description: "Atualiza lote ID 1 com data futura e quantidade valida. Esperado: 201."
           sortKey: -1779274801200
         method: PUT
         body:
@@ -598,7 +1108,7 @@ collection:
           text: |-
             {
             	"idProduto": 1,
-            	"dataVencimento": "2027-06-01",
+            	"dataVencimento": "2028-06-01",
             	"quantidade_lote": 100
             }
         headers:
@@ -616,17 +1126,116 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost:8000/lote-estoque/1
-        name: Delete LoteEstoque
+      - url: http://localhost:8000/lote-estoque/8
+        name: "[OK] Delete LoteEstoque"
         meta:
           id: req_f7a8b9c0d1e24f3a4b5c6d7e8f9a0b1c
           created: 1779274804000
           modified: 1779274804000
           isPrivate: false
-          description: ""
+          description: "Remove lote ID 8. Esperado: 200 + mensagem de sucesso."
           sortKey: -1779274804000
         method: DELETE
         headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque
+        name: "[ERRO] LoteEstoque - Data de vencimento passada"
+        meta:
+          id: req_e1001002001001001001001001001001
+          created: 1779275017000
+          modified: 1779275017000
+          isPrivate: false
+          description: "ATENCAO: o service foi modificado e nao chama validar_vencimento(). Com o codigo atual retorna 201 (insere o lote). Para ativar o erro, o service.adicionarLote() precisa checar lote.validar_vencimento()."
+          sortKey: -1779274804100
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"dataVencimento": "2020-01-01",
+            	"quantidade_lote": 50
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque
+        name: "[ERRO] LoteEstoque - Quantidade zero"
+        meta:
+          id: req_e1001003001001001001001001001001
+          created: 1779275018000
+          modified: 1779275018000
+          isPrivate: false
+          description: "ATENCAO: o service foi modificado e nao chama validar_qtd(). Com o codigo atual retorna 201 (insere o lote com qtd 0). Para ativar o erro, o service.adicionarLote() precisa checar lote.validar_qtd()."
+          sortKey: -1779274804200
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"dataVencimento": "2027-12-31",
+            	"quantidade_lote": 0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque
+        name: "[ERRO] LoteEstoque - Quantidade negativa"
+        meta:
+          id: req_e1001004001001001001001001001001
+          created: 1779275019000
+          modified: 1779275019000
+          isPrivate: false
+          description: "ATENCAO: o service foi modificado e nao chama validar_qtd(). Com o codigo atual retorna 201 (insere o lote com qtd negativa). Para ativar o erro, o service.adicionarLote() precisa checar lote.validar_qtd()."
+          sortKey: -1779274804300
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"dataVencimento": "2027-12-31",
+            	"quantidade_lote": -20
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
           - name: User-Agent
             value: insomnia/12.5.0
             description: ""
