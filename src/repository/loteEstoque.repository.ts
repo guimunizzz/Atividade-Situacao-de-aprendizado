@@ -9,7 +9,7 @@ export class LoteEstoqueRepository {
      * @returns Promise com os dados de todos os lotes.
      */
     async selectTodos(): Promise<ResultSetHeader> {
-        const sql = 'SELECT * FROM LoteEstoque';
+        const sql = 'SELECT * FROM lote_estoque';
         const [rows] = await db.execute<ResultSetHeader>(sql);
         return rows;
     }
@@ -20,7 +20,7 @@ export class LoteEstoqueRepository {
      * @returns Promise com os dados do lote encontrado.
      */
     async selectById(id: number): Promise<ResultSetHeader> {
-        const sql = 'SELECT * FROM LoteEstoque WHERE id_lote = ?';
+        const sql = 'SELECT * FROM lote_estoque WHERE id_lote = ?';
         const values = [id];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
@@ -28,11 +28,11 @@ export class LoteEstoqueRepository {
 
     /**
      * Insere um novo lote de estoque no banco de dados.
-     * @param dados - Instância de LoteEstoque com os dados a serem inseridos.
+     * @param dados - Instância de lote_estoque com os dados a serem inseridos.
      * @returns Promise com o resultado da operação de inserção.
      */
     async adicionarLote(dados: LoteEstoque): Promise<ResultSetHeader> {
-        const sql = 'INSERT INTO LoteEstoque (id_produto, data_vencimento, quantidade) VALUES (?, ?, ?)';
+        const sql = 'INSERT INTO lote_estoque (id_produto, data_vencimento, quantidade) VALUES (?, ?, ?)';
         const values = [dados.IdProduto, dados.DataVencimento, dados.Quantidade];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
@@ -41,11 +41,11 @@ export class LoteEstoqueRepository {
     /**
      * Atualiza a data de vencimento e a quantidade de um lote de estoque existente.
      * @param id - ID do lote a ser atualizado.
-     * @param dados - Instância de LoteEstoque com os novos dados.
+     * @param dados - Instância de lote_estoque com os novos dados.
      * @returns Promise com o resultado da operação de atualização.
      */
     async editarLote(id: number, dados: LoteEstoque): Promise<ResultSetHeader> {
-        const sql = 'UPDATE LoteEstoque SET data_vencimento = ?, quantidade = ? WHERE id_lote = ?';
+        const sql = 'UPDATE lote_estoque SET data_vencimento = ?, quantidade = ? WHERE id_lote = ?';
         const values = [dados.DataVencimento, dados.Quantidade, id];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
@@ -57,7 +57,7 @@ export class LoteEstoqueRepository {
      * @returns Promise com o resultado da operação de exclusão.
      */
     async deletarLote(id: number): Promise<ResultSetHeader> {
-        const sql = 'DELETE FROM LoteEstoque WHERE id_lote = ?';
+        const sql = 'DELETE FROM lote_estoque WHERE id_lote = ?';
         const values = [id];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
