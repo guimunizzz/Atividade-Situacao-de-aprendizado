@@ -1,9 +1,26 @@
+/**
+ * 20/05/2026 - movimentacao.model.ts
+ * Descrição: Este arquivo define a classe Movimentacao, que representa uma movimentação de estoque no sistema.
+ * Classe que representa uma movimentação de estoque, contendo informações sobre o tipo, quantidade e lote.
+ * Esta classe é utilizada para gerenciar as movimentações de estoque do sistema, permitindo o controle de entradas e saídas.
+ * Atributos:
+    * - _idMovimentacao: Identificador único da movimentação (opcional, gerado automaticamente pelo banco de dados).
+    * - _tipoMovimento: Tipo da movimentação (ENTRADA ou SAIDA).
+    * - _quantidade: Quantidade movimentada.
+    * - _idLote: Identificador do lote associado à movimentação.
+    * - _idProduto: Identificador do produto associado à movimentação.
+    * - _dtMovimentacao: Data e hora da movimentação (opcional, gerada automaticamente pelo banco de dados).
+ * Métodos:
+ * - _validarQuantidadeAtual: Valida se a quantidade é maior que zero. (quantidade > 0)
+ * - Construtor: Permite criar uma instância de Estoque com os atributos necessários.
+ * - Getters e Setters: Permitem acessar e modificar os atributos do estoque.
+ */
 export class Movimentacao {
     private readonly _idMovimentacao?: number;
     private _tipoMovimento: string = '';
     private _quantidade: number = 0;
-    private _idLote: number = 0;
-    private _idProduto: number = 0;
+    private readonly _idLote: number;
+    private readonly _idProduto: number;
     private readonly _dtMovimentacao?: Date;
 
     constructor(
@@ -16,8 +33,8 @@ export class Movimentacao {
     ) {
         this.TipoMovimento = tipoMovimento;
         this.Quantidade = quantidade;
-        this.IdLote = idLote;
-        this.IdProduto = idProduto;
+        this._idLote = idLote;
+        this._idProduto = idProduto;
         this._idMovimentacao = idMovimentacao;
         this._dtMovimentacao = dtMovimentacao;
     }
@@ -56,16 +73,6 @@ export class Movimentacao {
         this._quantidade = value;
     }
 
-    public set IdLote(value: number) {
-        this._validarIdLote(value);
-        this._idLote = value;
-    }
-
-    public set IdProduto(value: number) {
-        this._validarIdProduto(value);
-        this._idProduto = value;
-    }
-
     public static adicionar(
         tipoMovimento: string,
         quantidade: number,
@@ -100,24 +107,6 @@ export class Movimentacao {
         }
         if (value <= 0) {
             throw new TypeError('A quantidade deve ser maior que zero.');
-        }
-    }
-
-    private _validarIdLote(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do lote deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id do lote deve ser um número válido maior que zero.');
-        }
-    }
-
-    private _validarIdProduto(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do produto deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id do produto deve ser um número válido maior que zero.');
         }
     }
 }
