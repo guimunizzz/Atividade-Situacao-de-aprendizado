@@ -52,96 +52,96 @@ CREATE TABLE IF NOT EXISTS Movimentacao (
     FOREIGN KEY (id_produto) REFERENCES produtos (id_produto) ON DELETE CASCADE
 );
 
-INSERT INTO
-    Categorias (dc_categoria)
-VALUES ('Bebidas'),
-    ('Alimentos'),
-    ('Limpeza'),
-    ('Higiene Pessoal');
+-- INSERT INTO
+--     Categorias (dc_categoria)
+-- VALUES ('Bebidas'),
+--     ('Alimentos'),
+--     ('Limpeza'),
+--     ('Higiene Pessoal');
 
-INSERT INTO
-    Fornecedores (dc_fornecedor)
-VALUES ('Fornecedor A'),
-    ('Fornecedor B'),
-    ('Fornecedor C'),
-    ('Fornecedor D');
+-- INSERT INTO
+--     Fornecedores (dc_fornecedor)
+-- VALUES ('Fornecedor A'),
+--     ('Fornecedor B'),
+--     ('Fornecedor C'),
+--     ('Fornecedor D');
 
-INSERT INTO
-    Produtos (
-        dc_produto,
-        vinculo_imagem,
-        preco,
-        estoque_minimo,
-        id_categoria,
-        id_fornecedor
-    )
-VALUES (
-        'Coca-Cola',
-        'coca-cola.jpg',
-        5.99,
-        10,
-        1,
-        1
-    ),
-    (
-        'Arroz',
-        'arroz.jpg',
-        20.00,
-        50,
-        2,
-        2
-    ),
-    (
-        'Detergente',
-        'detergente.jpg',
-        3.50,
-        15,
-        3,
-        3
-    ),
-    (
-        'Shampoo',
-        'shampoo.jpg',
-        12.00,
-        20,
-        4,
-        4
-    );
+-- INSERT INTO
+--     Produtos (
+--         dc_produto,
+--         vinculo_imagem,
+--         preco,
+--         estoque_minimo,
+--         id_categoria,
+--         id_fornecedor
+--     )
+-- VALUES (
+--         'Coca-Cola',
+--         'coca-cola.jpg',
+--         5.99,
+--         10,
+--         1,
+--         1
+--     ),
+--     (
+--         'Arroz',
+--         'arroz.jpg',
+--         20.00,
+--         50,
+--         2,
+--         2
+--     ),
+--     (
+--         'Detergente',
+--         'detergente.jpg',
+--         3.50,
+--         15,
+--         3,
+--         3
+--     ),
+--     (
+--         'Shampoo',
+--         'shampoo.jpg',
+--         12.00,
+--         20,
+--         4,
+--         4
+--     );
 
-INSERT INTO
-    Estoque (id_produto, quantidade_atual)
-VALUES (1, 100),
-    (2, 200),
-    (3, 150),
-    (4, 80);
+-- INSERT INTO
+--     Estoque (id_produto, quantidade_atual)
+-- VALUES (1, 100),
+--     (2, 200),
+--     (3, 150),
+--     (4, 80);
 
-Insert into
-    Lote_Estoque (
-        id_produto,
-        dt_vencimento,
-        quantidade_lote
-    )
-values (1, '2026-12-31', 50),
-    (1, '2025-01-31', 50),
-    (2, '2026-06-30', 100),
-    (2, '2025-07-31', 100),
-    (3, '2026-11-30', 75),
-    (3, '2026-12-31', 75),
-    (4, '2026-03-31', 40),
-    (4, '2026-04-30', 40);
+-- Insert into
+--     Lote_Estoque (
+--         id_produto,
+--         dt_vencimento,
+--         quantidade_lote
+--     )
+-- values (1, '2026-12-31', 50),
+--     (1, '2025-01-31', 50),
+--     (2, '2026-06-30', 100),
+--     (2, '2025-07-31', 100),
+--     (3, '2026-11-30', 75),
+--     (3, '2026-12-31', 75),
+--     (4, '2026-03-31', 40),
+--     (4, '2026-04-30', 40);
 
-INSERT INTO
-    Movimentacao (
-        tipo_movimento,
-        quantidade,
-        id_lote,
-        id_produto
-    )
-VALUES ('ENTRADA', 50, 1, 1),
-    ('ENTRADA', 50, 2, 1),
-    ('ENTRADA', 100, 3, 2),
-    ('ENTRADA', 100, 4, 2),
-    ('ENTRADA', 75, 5, 3),
-    ('ENTRADA', 75, 6, 3),
-    ('ENTRADA', 40, 7, 4),
-    ('ENTRADA', 40, 8, 4);
+-- INSERT INTO
+--     Movimentacao (
+--         tipo_movimento,
+--         quantidade,
+--         id_lote,
+--         id_produto
+--     )
+-- VALUES ('ENTRADA', 50, 1, 1),
+--     ('ENTRADA', 50, 2, 1),
+--     ('ENTRADA', 100, 3, 2),
+--     ('ENTRADA', 100, 4, 2),
+--     ('ENTRADA', 75, 5, 3),
+--     ('ENTRADA', 75, 6, 3),
+--     ('ENTRADA', 40, 7, 4),
+--     ('ENTRADA', 40, 8, 4);
