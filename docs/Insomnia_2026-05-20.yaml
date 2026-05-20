@@ -1,0 +1,534 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: situacaoAprendizado
+meta:
+  id: wrk_ddcfb1dafba64d17b639e2acad70e06f
+  created: 1776859256021
+  modified: 1776859256021
+  description: ""
+collection:
+  - name: Categorias
+    meta:
+      id: fld_6227951c35274299b45070d991a4d88d
+      created: 1776859262944
+      modified: 1776859262944
+      sortKey: -1776859262944
+      description: ""
+    children:
+      - url: http://localhost:8000/categoria
+        name: Select Categoria
+        meta:
+          id: req_e43a4889b6664e7081a309661ecc433f
+          created: 1776859264706
+          modified: 1776859509008
+          isPrivate: false
+          description: ""
+          sortKey: -1776859264706
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categoria
+        name: Insert Categoria
+        meta:
+          id: req_435f7c31d3a744578e003e43ba95285e
+          created: 1776859305351
+          modified: 1776859506127
+          isPrivate: false
+          description: ""
+          sortKey: -1776859305351
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "Ronaldo2"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categoria/1
+        name: Put Categoria
+        meta:
+          id: req_c181078816304ca2af240094fbf8eb90
+          created: 1776859410355
+          modified: 1776859498493
+          isPrivate: false
+          description: ""
+          sortKey: -1776859410355
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "Compras"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categoria/2
+        name: Delete Categoria
+        meta:
+          id: req_15e67f507ac7483084d17f20febaf52d
+          created: 1776859465891
+          modified: 1776859495165
+          isPrivate: false
+          description: ""
+          sortKey: -1776859465891
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Fornecedores
+    meta:
+      id: fld_efcb87a7267942b7b155f02fe7492eb3
+      created: 1776859532332
+      modified: 1776859532332
+      sortKey: -1775090432368
+      description: ""
+    children:
+      - url: http://localhost:8000/fornecedores
+        name: Select Fornecedor
+        meta:
+          id: req_aa8b3540d6b04fe5b19ff92707bcfaba
+          created: 1776859532337
+          modified: 1776859704793
+          isPrivate: false
+          description: ""
+          sortKey: -1776859264706
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/fornecedores
+        name: Insert Fornecedor
+        meta:
+          id: req_255f9b1a6e434f229c45c706e31d1116
+          created: 1776859532342
+          modified: 1776859605657
+          isPrivate: false
+          description: ""
+          sortKey: -1776859305351
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "ronaldo2"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/fornecedores/1
+        name: Put Fornecedor
+        meta:
+          id: req_253f778314034fd6a849c28ea8deed89
+          created: 1776859532347
+          modified: 1776859718233
+          isPrivate: false
+          description: ""
+          sortKey: -1776859410355
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "Ronald"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/fornecedores/2
+        name: Delete Fornecedor
+        meta:
+          id: req_bf944807d64a4cbf8be2a2620ecd8066
+          created: 1776859532351
+          modified: 1776859739040
+          isPrivate: false
+          description: ""
+          sortKey: -1776859465891
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produtos
+    meta:
+      id: fld_18aa6d14abce49c2ae40f4d689db24b1
+      created: 1776866137534
+      modified: 1779274674132
+      sortKey: -1776866137534
+      description: ""
+    children:
+      - url: http://localhost:8000/produtos/
+        name: Select Produto
+        meta:
+          id: req_cac24d2b7ca442cebd3e34ce60ef66e4
+          created: 1776866139975
+          modified: 1779274657330
+          isPrivate: false
+          description: ""
+          sortKey: -1776866139975
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos
+        name: Insert Produto
+        meta:
+          id: req_c148adefc14d4315b1ae66dcc1eb21b5
+          created: 1779274227005
+          modified: 1779274628974
+          isPrivate: false
+          description: ""
+          sortKey: -1776866140075
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: dcProduto
+              value: Ronaldo2
+              description: ""
+              disabled: false
+            - name: preco
+              value: "100"
+              description: ""
+              disabled: false
+            - name: estoqueMinimo
+              value: "2"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: idFornecedor
+              value: "1"
+              description: ""
+              disabled: false
+            - name: vinculoImagem
+              value: ""
+              description: ""
+              disabled: false
+              fileName: C:\Users\43737514801\Pictures\71cb5d67d7ee9d71b358c967f400db26.jpeg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/3
+        name: Put Produto
+        meta:
+          id: req_29036321c7ba461abaa54788ba0576cf
+          created: 1779274586869
+          modified: 1779276279662
+          isPrivate: false
+          description: ""
+          sortKey: -1776866140175
+        method: PUT
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: dcProduto
+              value: Gato frajola
+              description: ""
+              disabled: false
+            - name: preco
+              value: "10"
+              description: ""
+              disabled: false
+            - name: estoqueMinimo
+              value: "4"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: idFornecedor
+              value: "1"
+              description: ""
+              disabled: false
+            - name: vinculoImagem
+              value: ""
+              description: ""
+              disabled: false
+              fileName: C:\Users\43737514801\Pictures\71cb5d67d7ee9d71b358c967f400db26.jpeg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/1
+        name: Delete Produto
+        meta:
+          id: req_b676cc9cd96b43d3b11cd2f1b17e0cac
+          created: 1779274646400
+          modified: 1779275142234
+          isPrivate: false
+          description: ""
+          sortKey: -1779274646400
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Estoque
+    meta:
+      id: fld_7c916f029f094893915275999a415749
+      created: 1779274677839
+      modified: 1779274677839
+      sortKey: -1779274677839
+      description: ""
+    children:
+      - url: http://localhost:8000/estoque
+        name: Select Estoque
+        meta:
+          id: req_4fa4e13f2e004836af8213bc0b83908d
+          created: 1779274681563
+          modified: 1779274695289
+          isPrivate: false
+          description: ""
+          sortKey: -1779274681563
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque
+        name: Insert Estoque
+        meta:
+          id: req_40426cd58b4d48409ecbcbce3c67d80b
+          created: 1779274715033
+          modified: 1779274737185
+          isPrivate: false
+          description: ""
+          sortKey: -1779274681663
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"quantidadeAtual": 10
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque/1
+        name: Put Estoque
+        meta:
+          id: req_58621a158d7c422f9a3d2bfaa8e38b39
+          created: 1779274763260
+          modified: 1779274770015
+          isPrivate: false
+          description: ""
+          sortKey: -1779274681763
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"quantidadeAtual": 15
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/estoque/1
+        name: Delete Estoque
+        meta:
+          id: req_b14a2cd6e6944583805cf36869a56c23
+          created: 1779274779371
+          modified: 1779275090173
+          isPrivate: false
+          description: ""
+          sortKey: -1779274779371
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_9ab0225e1c4f01a42f13db19fe7f56f78e1b4d95
+    created: 1776859256078
+    modified: 1776859256078
+environments:
+  name: Base Environment
+  meta:
+    id: env_9ab0225e1c4f01a42f13db19fe7f56f78e1b4d95
+    created: 1776859256040
+    modified: 1776859256040
+    isPrivate: false
