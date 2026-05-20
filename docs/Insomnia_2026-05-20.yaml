@@ -519,6 +519,126 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: LoteEstoque
+    meta:
+      id: fld_b3c4d5e6f7a84b9c0d1e2f3a4b5c6d7e
+      created: 1779274800000
+      modified: 1779274800000
+      sortKey: -1779274800000
+      description: ""
+    children:
+      - url: http://localhost:8000/lote-estoque
+        name: Select LoteEstoque
+        meta:
+          id: req_c4d5e6f7a8b94c0d1e2f3a4b5c6d7e8f
+          created: 1779274801000
+          modified: 1779274801000
+          isPrivate: false
+          description: ""
+          sortKey: -1779274801000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque
+        name: Insert LoteEstoque
+        meta:
+          id: req_d5e6f7a8b9c04d1e2f3a4b5c6d7e8f9a
+          created: 1779274802000
+          modified: 1779274802000
+          isPrivate: false
+          description: ""
+          sortKey: -1779274801100
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"dataVencimento": "2027-01-01",
+            	"quantidade": 50
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque/1
+        name: Put LoteEstoque
+        meta:
+          id: req_e6f7a8b9c0d14e2f3a4b5c6d7e8f9a0b
+          created: 1779274803000
+          modified: 1779274803000
+          isPrivate: false
+          description: ""
+          sortKey: -1779274801200
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idProduto": 1,
+            	"dataVencimento": "2027-06-01",
+            	"quantidade": 100
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/lote-estoque/1
+        name: Delete LoteEstoque
+        meta:
+          id: req_f7a8b9c0d1e24f3a4b5c6d7e8f9a0b1c
+          created: 1779274804000
+          modified: 1779274804000
+          isPrivate: false
+          description: ""
+          sortKey: -1779274804000
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
