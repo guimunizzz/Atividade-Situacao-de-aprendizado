@@ -52,13 +52,13 @@ export class LoteEstoqueController {
 
     /**
      * Cria um novo lote de estoque com os dados do corpo da requisição.
-     * @param req - Objeto de requisição Express (body: { idProduto, dataVencimento, quantidade }).
+     * @param req - Objeto de requisição Express (body: { idProduto, dataVencimento, quantidade_lote }).
      * @param res - Objeto de resposta Express.
      */
     criarLote = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { idProduto, dataVencimento, quantidade } = req.body;
-            const novoLote = await this._service.adicionarLote(idProduto, new Date(dataVencimento), quantidade);
+            const { idProduto, dataVencimento, quantidade_lote } = req.body;
+            const novoLote = await this._service.adicionarLote(idProduto, new Date(dataVencimento), quantidade_lote);
             res.status(201).json({ novoLote });
         } catch (error) {
             console.log(error);
@@ -68,14 +68,14 @@ export class LoteEstoqueController {
 
     /**
      * Atualiza um lote de estoque existente pelo ID informado na URL.
-     * @param req - Objeto de requisição Express (params.id, body: { idProduto, dataVencimento, quantidade }).
+     * @param req - Objeto de requisição Express (params.id, body: { idProduto, dataVencimento, quantidade_lote }).
      * @param res - Objeto de resposta Express.
      */
     atualizarLote = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { idProduto, dataVencimento, quantidade } = req.body;
+            const { idProduto, dataVencimento, quantidade_lote } = req.body;
             const idLote = Number(req.params.id);
-            const loteAlterado = await this._service.editarLote(idLote, idProduto, new Date(dataVencimento), quantidade);
+            const loteAlterado = await this._service.editarLote(idLote, idProduto, new Date(dataVencimento), quantidade_lote);
             res.status(201).json({ loteAlterado });
         } catch (error) {
             console.log(error);
