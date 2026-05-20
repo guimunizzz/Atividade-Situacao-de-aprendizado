@@ -32,7 +32,7 @@ export class LoteEstoqueRepository {
      * @returns Promise com o resultado da operação de inserção.
      */
     async adicionarLote(dados: LoteEstoque): Promise<ResultSetHeader> {
-        const sql = 'INSERT INTO lote_estoque (id_produto, data_vencimento, quantidade) VALUES (?, ?, ?)';
+        const sql = 'INSERT INTO lote_estoque (id_produto, dt_vencimento, quantidade) VALUES (?, ?, ?)';
         const values = [dados.IdProduto, dados.DataVencimento, dados.Quantidade];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
@@ -45,7 +45,7 @@ export class LoteEstoqueRepository {
      * @returns Promise com o resultado da operação de atualização.
      */
     async editarLote(id: number, dados: LoteEstoque): Promise<ResultSetHeader> {
-        const sql = 'UPDATE lote_estoque SET data_vencimento = ?, quantidade = ? WHERE id_lote = ?';
+        const sql = 'UPDATE lote_estoque SET dt_vencimento = ?, quantidade = ? WHERE id_lote = ?';
         const values = [dados.DataVencimento, dados.Quantidade, id];
         const [rows] = await db.execute<ResultSetHeader>(sql, values);
         return rows;
