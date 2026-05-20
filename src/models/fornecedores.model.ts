@@ -1,14 +1,27 @@
+/**
+ * 20/05/2026 - fornecedores.model.ts
+ * Descrição: Este arquivo define a classe Fornecedores, que representa um fornecedor no sistema.
+ * Classe que representa um fornecedor, contendo informações sobre o nome e o identificador.
+ * Esta classe é utilizada para gerenciar os fornecedores do sistema, permitindo o controle de informações e relacionamentos.
+ * Atributos:
+ * - _dcFornecedor: Descrição do fornecedor.
+ * - _idFornecedor: Identificador único do fornecedor (opcional, gerado automaticamente pelo banco de dados).
+ * Métodos:
+ * - _validarFornecedor: Valida a descrição do fornecedor.
+ * - Construtor: Permite criar uma instância de Fornecedores com os atributos necessários.
+ * - Getters e Setters: Permitem acessar e modificar os atributos do fornecedor.
+ */
 export class Fornecedores {
     private _dcFornecedor: string = '';
-    private readonly _id?: number;
+    private readonly _idFornecedor?: number;
 
     constructor(dcFornecedor: string, id?: number) {
         this.DescricaoFornecedor = dcFornecedor;
-        this._id = id;
+        this._idFornecedor = id;
     }
 
-    public get Id(): number | undefined {
-        return this._id;
+    public get IdFornecedor(): number | undefined {
+        return this._idFornecedor;
     }
 
     public get DescricaoFornecedor(): string {
@@ -17,7 +30,7 @@ export class Fornecedores {
 
 
     public set DescricaoFornecedor(value: string) {
-        this._validarFornecedor(value);
+        this._validarDcFornecedor(value);
         this._dcFornecedor = value;
     }
 
@@ -26,11 +39,11 @@ export class Fornecedores {
         return new Fornecedores(DescricaoFornecedor);
     }
 
-    public static editar(DescricaoFornecedor: string, id: number): Fornecedores {
-        return new Fornecedores(DescricaoFornecedor, id);
+    public static editar(DescricaoFornecedor: string, idFornecedor: number): Fornecedores {
+        return new Fornecedores(DescricaoFornecedor, idFornecedor);
     }
 
-    private _validarFornecedor(value: string): void {
+    private _validarDcFornecedor(value: string): void {
         if (typeof (value) != "string") {
             throw new TypeError('A descrição do fornecedor deve ser um texto(string)')
         }
