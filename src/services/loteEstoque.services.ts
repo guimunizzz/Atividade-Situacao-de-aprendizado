@@ -31,14 +31,6 @@ export class LoteEstoqueService {
      */
     async adicionarLote(idProduto: number, dataVencimento: Date, quantidade: number) {
         const lote = new LoteEstoque(idProduto, dataVencimento, quantidade);
-
-        if (!lote.validar_vencimento()) {
-            throw new Error('A data de vencimento deve ser uma data futura.');
-        }
-        if (!lote.validar_qtd()) {
-            throw new Error('A quantidade do lote deve ser maior que zero.');
-        }
-
         return await this._repository.adicionarLote(lote);
     }
 
@@ -53,14 +45,6 @@ export class LoteEstoqueService {
      */
     async editarLote(id: number, idProduto: number, dataVencimento: Date, quantidade: number) {
         const lote = new LoteEstoque(idProduto, dataVencimento, quantidade, id);
-
-        if (!lote.validar_vencimento()) {
-            throw new Error('A data de vencimento deve ser uma data futura.');
-        }
-        if (!lote.validar_qtd()) {
-            throw new Error('A quantidade do lote deve ser maior que zero.');
-        }
-
         return await this._repository.editarLote(id, lote);
     }
 
