@@ -52,6 +52,41 @@ CREATE TABLE IF NOT EXISTS Movimentacao (
     FOREIGN KEY (id_produto) REFERENCES produtos (id_produto) ON DELETE CASCADE
 );
 
+-- ============================================================
+-- TRIGGERS
+-- ============================================================
+
+-- Atualiza quantidade_atual em Estoque ao inserir uma Movimentacao.
+-- ENTRADA soma a quantidade; SAIDA subtrai.
+-- A trigger tambem atualiza dt_ultima_atualizacao do registro de estoque.
+DELIMITER $$
+
+CREATE TRIGGER trg_movimentacao_atualiza_estoque
+AFTER INSERT ON Movimentacao
+FOR EACH ROW
+BEGIN
+    IF NEW.tipo_movimento = 'ENTRADA' THEN
+        UPDATE Estoque
+        SET
+            quantidade_atual       = quantidade_atual + NEW.quantidade,
+            dt_ultima_atualizacao  = CURRENT_TIMESTAMP
+        WHERE id_produto = NEW.id_produto;
+
+    ELSEIF NEW.tipo_movimento = 'SAIDA' THEN
+        UPDATE Estoque
+        SET
+            quantidade_atual       = quantidade_atual - NEW.quantidade,
+            dt_ultima_atualizacao  = CURRENT_TIMESTAMP
+        WHERE id_produto = NEW.id_produto;
+    END IF;
+END$$
+
+DELIMITER;
+
+-- ============================================================
+-- DADOS INICIAIS (comentados — descomentar para popular o banco)
+-- ============================================================
+
 -- INSERT INTO
 --     Categorias (dc_categoria)
 -- VALUES ('Bebidas'),
