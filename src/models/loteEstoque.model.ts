@@ -10,7 +10,7 @@
  * - quantidade: Quantidade de itens disponíveis no lote.
  * Métodos:
  * - validar_vencimento: Valida se a data de vencimento é uma data futura. (now() < dataVencimento)
- * - validar_qtde: Valida se a quantidade é maior que zero. (quantidade > 0)
+ * - _validarQuantidadeLote: Valida se a quantidade é maior que zero. (quantidade > 0)
  * - notificarEstoqueMinimo: Notifica quando a quantidade do lote atingir um nível mínimo (quantidade <= 10).
  * - Construtor: Permite criar uma instância de LoteEstoque com os atributos necessários.
  * - Getters e Setters: Permitem acessar e modificar os atributos do lote de estoque.
@@ -65,8 +65,6 @@ export class LoteEstoque {
         throw new TypeError('A quantidade do lote deve ser um número válido e não negativo.');
       }
     }
-
-
 
     // melhorar essa função para enviar um json
     public notificarEstoqueMinimo(): void {
