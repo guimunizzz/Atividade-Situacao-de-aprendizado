@@ -1,11 +1,31 @@
+/**
+ * 20/05/2026 - produto.model.ts
+ * Descrição: Este arquivo define a classe Produto, que representa um produto no sistema.
+ * Classe que representa um produto, contendo informações sobre a descrição, imagem, preço e estoque.
+ * Esta classe é utilizada para gerenciar os produtos do sistema, permitindo o controle de informações e disponibilidade.
+ * Atributos:
+ * - _idProduto: Identificador único do produto (opcional, gerado automaticamente pelo banco de dados).
+ * - _dcProduto: Descrição do produto.
+ * - _vinculoImagem: Arquivo vinculado para a imagem do produto.
+ * - _preco: Preço do produto.
+ * - _estoqueMinimo: Quantidade mínima de estoque do produto.
+ * - _idCategoria: Identificador da categoria do produto.
+ * - _idFornecedor: Identificador do fornecedor do produto.
+ * Métodos:
+ * - validar_vencimento: Valida se a data de vencimento é uma data futura. (now() < dataVencimento)
+ * - validar_qtde: Valida se a quantidade é maior que zero. (quantidade > 0)
+ * - notificarEstoqueMinimo: Notifica quando a quantidade do lote atingir um nível mínimo (quantidade <= 10).
+ * - Construtor: Permite criar uma instância de LoteEstoque com os atributos necessários.
+ * - Getters e Setters: Permitem acessar e modificar os atributos do lote de estoque.
+ */
 export class Produto {
     private readonly _idProduto?: number;
     private _dcProduto: string = '';
-    private _vinculoImagem: string = '';
+    private readonly _vinculoImagem: string = '';
     private _preco: number = 0;
     private _estoqueMinimo: number = 0;
-    private _idCategoria: number = 0;
-    private _idFornecedor: number = 0;
+    private readonly _idCategoria: number = 0;
+    private readonly _idFornecedor: number = 0;
 
     constructor(
         dcProduto: string,
@@ -17,11 +37,11 @@ export class Produto {
         idProduto?: number
     ) {
         this.DescricaoProduto = dcProduto;
-        this.VinculoImagem = vinculoImagem;
+        this._vinculoImagem = vinculoImagem;
         this.Preco = preco;
         this.EstoqueMinimo = estoqueMinimo;
-        this.IdCategoria = idCategoria;
-        this.IdFornecedor = idFornecedor;
+        this._idCategoria = idCategoria;
+        this._idFornecedor = idFornecedor;
         this._idProduto = idProduto;
     }
 
@@ -58,11 +78,6 @@ export class Produto {
         this._dcProduto = value;
     }
 
-    public set VinculoImagem(value: string) {
-        this._validarVinculoImagem(value);
-        this._vinculoImagem = value;
-    }
-
     public set Preco(value: number) {
         this._validarPreco(value);
         this._preco = value;
@@ -71,16 +86,6 @@ export class Produto {
     public set EstoqueMinimo(value: number) {
         this._validarEstoqueMinimo(value);
         this._estoqueMinimo = value;
-    }
-
-    public set IdCategoria(value: number) {
-        this._validarIdCategoria(value);
-        this._idCategoria = value;
-    }
-
-    public set IdFornecedor(value: number) {
-        this._validarIdFornecedor(value);
-        this._idFornecedor = value;
     }
 
     public static adicionar(
@@ -115,12 +120,6 @@ export class Produto {
         }
     }
 
-    private _validarVinculoImagem(value: string): void {
-        if (typeof value !== 'string') {
-            throw new TypeError('O vínculo de imagem deve ser um texto(string).');
-        }
-    }
-
     private _validarPreco(value: number): void {
         if (typeof value !== 'number') {
             throw new TypeError('O preço do produto deve ser um número.');
@@ -136,24 +135,6 @@ export class Produto {
         }
         if (value < 0) {
             throw new TypeError('O estoque mínimo não pode ser negativo.');
-        }
-    }
-
-    private _validarIdCategoria(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id da categoria deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id da categoria deve ser um número válido maior que zero.');
-        }
-    }
-
-    private _validarIdFornecedor(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do fornecedor deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id do fornecedor deve ser um número válido maior que zero.');
         }
     }
 }

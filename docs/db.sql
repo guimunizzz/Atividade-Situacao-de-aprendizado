@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Fornecedores (
 CREATE TABLE IF NOT EXISTS Produtos (
     id_produto INT PRIMARY KEY AUTO_INCREMENT,
     dc_produto TEXT,
-    vinculo_imagem VARCHAR(100) NOT NULL,
+    vinculo_imagem VARCHAR(100),
     preco DECIMAL(10, 2) NOT NULL,
     estoque_minimo INT NOT NULL,
     id_categoria INT NOT NULL,
