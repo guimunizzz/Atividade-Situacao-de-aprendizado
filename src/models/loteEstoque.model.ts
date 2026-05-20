@@ -29,7 +29,7 @@ export class LoteEstoque {
     ) {
       this._idProduto = idProduto;
       this._dataVencimento = dataVencimento;
-      this._quantidade = quantidade;
+      this.Quantidade = quantidade;
       this._idLote = idLote;
     }
     // getters
@@ -45,11 +45,13 @@ export class LoteEstoque {
     public get Quantidade(): number {
       return this._quantidade;
     }
+
     // setters
     public set DataVencimento(value: Date) {
       this._dataVencimento = value;
     }
     public set Quantidade(value: number) {
+      this._validarQuantidadeLote(value);
       this._quantidade = value;
     }
 
@@ -58,15 +60,18 @@ export class LoteEstoque {
       return hoje < this._dataVencimento;
     }
 
-    public validar_qtd(): boolean {
-      return this._quantidade > 0;
+    private _validarQuantidadeLote(value: number): void {
+      if (typeof value !== 'number' || value < 0) {
+        throw new TypeError('A quantidade do lote deve ser um número válido e não negativo.');
+      }
     }
+
+
 
     // melhorar essa função para enviar um json
     public notificarEstoqueMinimo(): void {
       if (this._quantidade <= 10) {
         console.log(`Atenção: O lote ${this._idLote} do produto ${this._idProduto} atingiu o estoque mínimo. Quantidade atual: ${this._quantidade}`);
       }
-
     }
   }
