@@ -566,7 +566,7 @@ collection:
             {
             	"idProduto": 1,
             	"dataVencimento": "2027-01-01",
-            	"quantidade": 50
+            	"quantidade_lote": 50
             }
         headers:
           - name: Content-Type
@@ -599,7 +599,7 @@ collection:
             {
             	"idProduto": 1,
             	"dataVencimento": "2027-06-01",
-            	"quantidade": 100
+            	"quantidade_lote": 100
             }
         headers:
           - name: Content-Type
