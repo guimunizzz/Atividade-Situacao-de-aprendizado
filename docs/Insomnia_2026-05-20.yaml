@@ -1248,6 +1248,321 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: Movimentacao
+    meta:
+      id: fld_f1001001001001001001001001001001
+      created: 1779274900000
+      modified: 1779274900000
+      sortKey: -1779274900000
+      description: ""
+    children:
+      - url: http://localhost:8000/movimentacao
+        name: "[OK] Select Todos Movimentacao"
+        meta:
+          id: req_f2001001001001001001001001001001
+          created: 1779274900100
+          modified: 1779274900100
+          isPrivate: false
+          description: "Retorna todas as movimentacoes. Esperado: 200 + array."
+          sortKey: -1779274900100
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao/1
+        name: "[OK] Select Movimentacao por ID"
+        meta:
+          id: req_f2001002001001001001001001001001
+          created: 1779274900150
+          modified: 1779274900150
+          isPrivate: false
+          description: "Busca movimentacao ID 1. Esperado: 200 + dados da movimentacao."
+          sortKey: -1779274900150
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[OK] Insert Movimentacao - ENTRADA"
+        meta:
+          id: req_f2001003001001001001001001001001
+          created: 1779274900200
+          modified: 1779274900200
+          isPrivate: false
+          description: "Registra entrada de 30 unidades do lote 1 / produto 1. tipoMovimento: ENTRADA. Esperado: 201."
+          sortKey: -1779274900200
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "ENTRADA",
+            	"quantidade": 30,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[OK] Insert Movimentacao - SAIDA"
+        meta:
+          id: req_f2001004001001001001001001001001
+          created: 1779274900250
+          modified: 1779274900250
+          isPrivate: false
+          description: "Registra saida de 10 unidades do lote 1 / produto 1. tipoMovimento: SAIDA. Esperado: 201."
+          sortKey: -1779274900250
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "SAIDA",
+            	"quantidade": 10,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao/1
+        name: "[OK] Update Movimentacao"
+        meta:
+          id: req_f2001005001001001001001001001001
+          created: 1779274900300
+          modified: 1779274900300
+          isPrivate: false
+          description: "Atualiza movimentacao ID 1. Altera tipo para SAIDA e quantidade para 20. Esperado: 201."
+          sortKey: -1779274900300
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "SAIDA",
+            	"quantidade": 20,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao/8
+        name: "[OK] Delete Movimentacao"
+        meta:
+          id: req_f2001006001001001001001001001001
+          created: 1779274900400
+          modified: 1779274900400
+          isPrivate: false
+          description: "Remove movimentacao ID 8. Movimentacao nao tem FK reversa, delete seguro. Esperado: 200."
+          sortKey: -1779274900400
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[ERRO] Movimentacao - Quantidade zero"
+        meta:
+          id: req_f2001007001001001001001001001001
+          created: 1779274900500
+          modified: 1779274900500
+          isPrivate: false
+          description: "Validacao no setter: quantidade = 0 falha pois validarQuantidade exige > 0. Lancado pelo model no construtor via setter. Esperado: 500 + 'A quantidade deve ser maior que zero'."
+          sortKey: -1779274900500
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "ENTRADA",
+            	"quantidade": 0,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[ERRO] Movimentacao - Quantidade negativa"
+        meta:
+          id: req_f2001008001001001001001001001001
+          created: 1779274900600
+          modified: 1779274900600
+          isPrivate: false
+          description: "Validacao no setter: quantidade = -10 falha pois <= 0. Esperado: 500 + 'A quantidade deve ser maior que zero'."
+          sortKey: -1779274900600
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "ENTRADA",
+            	"quantidade": -10,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[ERRO] Movimentacao - Quantidade decimal (nao inteiro)"
+        meta:
+          id: req_f2001009001001001001001001001001
+          created: 1779274900700
+          modified: 1779274900700
+          isPrivate: false
+          description: "Validacao no setter: 2.5 nao eh inteiro (!Number.isInteger). Esperado: 500 + 'A quantidade deve ser um numero inteiro'."
+          sortKey: -1779274900700
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "ENTRADA",
+            	"quantidade": 2.5,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/movimentacao
+        name: "[ERRO] Movimentacao - Tipo invalido (nao ENUM)"
+        meta:
+          id: req_f2001010001001001001001001001001
+          created: 1779274900800
+          modified: 1779274900800
+          isPrivate: false
+          description: "O setter TipoMovimento nao valida o valor no app. 'OUTRO' passa pelo model e chega ao banco, onde ENUM('ENTRADA','SAIDA') rejeita e retorna erro de DB. Esperado: 500 + erro MySQL."
+          sortKey: -1779274900800
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipoMovimento": "OUTRO",
+            	"quantidade": 10,
+            	"idLote": 1,
+            	"idProduto": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
