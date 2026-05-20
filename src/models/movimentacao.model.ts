@@ -1,13 +1,18 @@
+export enum TipoMovimento {
+    ENTRADA = 'ENTRADA',
+    SAIDA = 'SAIDA'
+}
+
 export class Movimentacao {
     private readonly _idMovimentacao?: number;
-    private _tipoMovimento: string = '';
+    private _tipoMovimento!: TipoMovimento;
     private _quantidade: number = 0;
-    private _idLote: number = 0;
-    private _idProduto: number = 0;
-    private readonly _dtMovimentacao?: Date;
+    private _id_lote: number = 0;
+    private _id_produto: number = 0;
+    private readonly _dt_movimentacao?: Date;
 
     constructor(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number,
@@ -19,14 +24,14 @@ export class Movimentacao {
         this.IdLote = idLote;
         this.IdProduto = idProduto;
         this._idMovimentacao = idMovimentacao;
-        this._dtMovimentacao = dtMovimentacao;
+        this._dt_movimentacao = dtMovimentacao;
     }
 
     public get IdMovimentacao(): number | undefined {
         return this._idMovimentacao;
     }
 
-    public get TipoMovimento(): string {
+    public get TipoMovimento(): TipoMovimento {
         return this._tipoMovimento;
     }
 
@@ -35,39 +40,39 @@ export class Movimentacao {
     }
 
     public get IdLote(): number {
-        return this._idLote;
+        return this._id_lote;
     }
 
     public get IdProduto(): number {
-        return this._idProduto;
+        return this._id_produto;
     }
 
     public get DtMovimentacao(): Date | undefined {
-        return this._dtMovimentacao;
+        return this._dt_movimentacao;
     }
 
-    public set TipoMovimento(value: string) {
-        this._validarTipoMovimento(value);
+    public set TipoMovimento(value: TipoMovimento) {
+        this.validarTipoMovimento(value);
         this._tipoMovimento = value;
     }
 
     public set Quantidade(value: number) {
-        this._validarQuantidade(value);
+        this.validarQuantidade(value);
         this._quantidade = value;
     }
 
     public set IdLote(value: number) {
-        this._validarIdLote(value);
-        this._idLote = value;
+        this.validarIdLote(value);
+        this._id_lote = value;
     }
 
     public set IdProduto(value: number) {
-        this._validarIdProduto(value);
-        this._idProduto = value;
+        this.validarIdProduto(value);
+        this._id_produto = value;
     }
 
     public static adicionar(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number
@@ -76,7 +81,7 @@ export class Movimentacao {
     }
 
     public static editar(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number,
@@ -85,39 +90,39 @@ export class Movimentacao {
         return new Movimentacao(tipoMovimento, quantidade, idLote, idProduto, idMovimentacao);
     }
 
-    private _validarTipoMovimento(value: string): void {
-        if (typeof value !== 'string') {
-            throw new TypeError('O tipo de movimento deve ser um texto(string).');
+    public validarQuantidade(value: number): void {
+        if (!Number.isInteger(value)) {
+            throw new TypeError('A quantidade deve ser um numero inteiro.');
         }
-        if (value !== 'ENTRADA' && value !== 'SAIDA') {
-            throw new TypeError('O tipo de movimento deve ser ENTRADA ou SAIDA.');
-        }
-    }
 
-    private _validarQuantidade(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('A quantidade deve ser um número.');
-        }
         if (value <= 0) {
             throw new TypeError('A quantidade deve ser maior que zero.');
         }
     }
 
-    private _validarIdLote(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do lote deve ser um número.');
-        }
-        if (value <= 0) {
-            throw new TypeError('O id do lote deve ser um número válido maior que zero.');
+    private validarTipoMovimento(value: TipoMovimento): void {
+        if (!Object.values(TipoMovimento).includes(value)) {
+            throw new TypeError('O tipo de movimento deve ser ENTRADA ou SAIDA.');
         }
     }
 
-    private _validarIdProduto(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('O id do produto deve ser um número.');
+    private validarIdLote(value: number): void {
+        if (!Number.isInteger(value)) {
+            throw new TypeError('O id do lote deve ser um numero inteiro.');
         }
+
         if (value <= 0) {
-            throw new TypeError('O id do produto deve ser um número válido maior que zero.');
+            throw new TypeError('O id do lote deve ser um numero valido maior que zero.');
+        }
+    }
+
+    private validarIdProduto(value: number): void {
+        if (!Number.isInteger(value)) {
+            throw new TypeError('O id do produto deve ser um numero inteiro.');
+        }
+
+        if (value <= 0) {
+            throw new TypeError('O id do produto deve ser um numero valido maior que zero.');
         }
     }
 }

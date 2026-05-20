@@ -1,5 +1,5 @@
 import { MovimentacaoRepository } from '../repository/movimentacao.repository';
-import { Movimentacao } from '../models/movimentacao.model';
+import { Movimentacao, TipoMovimento } from '../models/movimentacao.model';
 
 export class MovimentacaoService {
     constructor(private readonly _repository = new MovimentacaoRepository()) { }
@@ -13,7 +13,7 @@ export class MovimentacaoService {
     }
 
     async adicionarMovimentacao(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number
@@ -24,7 +24,7 @@ export class MovimentacaoService {
 
     async editarMovimentacao(
         id: number,
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number
