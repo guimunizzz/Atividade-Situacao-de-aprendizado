@@ -1,4 +1,4 @@
-CREATE DATABASE StockPlus_db;
+CREATE DATABASE stockplus_db;
 
 USE StockPlus_db;
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Lote_Estoque (
     dt_vencimento DATE,
     quantidade_lote INT,
     dt_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto)
+    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Movimentacao (
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS Movimentacao (
     dt_movimentacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_lote INT,
     id_produto INT,
-    FOREIGN KEY (id_lote) REFERENCES Lote_Estoque (id_lote),
-    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto)
+    FOREIGN KEY (id_lote) REFERENCES Lote_Estoque (id_lote) ON DELETE CASCADE,
+    FOREIGN KEY (id_produto) REFERENCES produtos (id_produto) ON DELETE CASCADE
 );
 
 INSERT INTO
