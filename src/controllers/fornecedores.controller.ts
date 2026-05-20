@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { FornecedoresService } from '../services/fornecedores.repository';
+import { FornecedoresService } from '../services/fornecedores.services';
 
 export class FornecedoresController {
     constructor(private readonly _service = new FornecedoresService()) { }
