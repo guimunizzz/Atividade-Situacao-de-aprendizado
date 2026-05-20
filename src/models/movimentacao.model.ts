@@ -1,3 +1,8 @@
+export enum TipoMovimento {
+    ENTRADA = 'ENTRADA',
+    SAIDA = 'SAIDA'
+}
+
 /**
  * 20/05/2026 - movimentacao.model.ts
  * Descrição: Este arquivo define a classe Movimentacao, que representa uma movimentação de estoque no sistema.
@@ -17,14 +22,14 @@
  */
 export class Movimentacao {
     private readonly _idMovimentacao?: number;
-    private _tipoMovimento: string = '';
+    private _tipoMovimento!: TipoMovimento;
     private _quantidade: number = 0;
     private readonly _idLote: number;
     private readonly _idProduto: number;
     private readonly _dtMovimentacao?: Date;
 
     constructor(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number,
@@ -43,7 +48,7 @@ export class Movimentacao {
         return this._idMovimentacao;
     }
 
-    public get TipoMovimento(): string {
+    public get TipoMovimento(): TipoMovimento {
         return this._tipoMovimento;
     }
 
@@ -63,18 +68,17 @@ export class Movimentacao {
         return this._dtMovimentacao;
     }
 
-    public set TipoMovimento(value: string) {
-        this._validarTipoMovimento(value);
+    public set TipoMovimento(value: TipoMovimento) {
         this._tipoMovimento = value;
     }
 
     public set Quantidade(value: number) {
-        this._validarQuantidade(value);
+        this.validarQuantidade(value);
         this._quantidade = value;
     }
 
     public static adicionar(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number
@@ -83,7 +87,7 @@ export class Movimentacao {
     }
 
     public static editar(
-        tipoMovimento: string,
+        tipoMovimento: TipoMovimento,
         quantidade: number,
         idLote: number,
         idProduto: number,
@@ -92,19 +96,11 @@ export class Movimentacao {
         return new Movimentacao(tipoMovimento, quantidade, idLote, idProduto, idMovimentacao);
     }
 
-    private _validarTipoMovimento(value: string): void {
-        if (typeof value !== 'string') {
-            throw new TypeError('O tipo de movimento deve ser um texto(string).');
+    public validarQuantidade(value: number): void {
+        if (!Number.isInteger(value)) {
+            throw new TypeError('A quantidade deve ser um numero inteiro.');
         }
-        if (value !== 'ENTRADA' && value !== 'SAIDA') {
-            throw new TypeError('O tipo de movimento deve ser ENTRADA ou SAIDA.');
-        }
-    }
 
-    private _validarQuantidade(value: number): void {
-        if (typeof value !== 'number') {
-            throw new TypeError('A quantidade deve ser um número.');
-        }
         if (value <= 0) {
             throw new TypeError('A quantidade deve ser maior que zero.');
         }
